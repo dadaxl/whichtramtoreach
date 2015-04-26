@@ -67,6 +67,20 @@ echo '<!DOCTYPE html>
 					text-align: center
 
 				}
+
+				#countdown {
+					position: fixed;
+					right: 0;
+					bottom: 0;
+				}
+
+				#countdown div {
+					float: left;
+					text-align: center;
+					background: #000;
+					color: #fff;
+					padding: 20px;
+				}
 			</style>
 			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		</head>
@@ -91,9 +105,11 @@ echo '</tr></table>
 	  <div id="recommended">
 	  	<div></div>
 	  </div>
+	  <div id="countdown"><div>0</div></div>
 	  <script src="js/main.js"></script>
 	  <script>
-	  	window.setTimeout(function() {location.reload();}, 6000);
+	  	triggerTimer((' . $timeOutInMs . '/1000));
+	  	//window.setTimeout(function() {location.reload();}, ' . $timeOutInMs . ');
 	  </script>';
 
 echo '</body></html>';
