@@ -2,6 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+$timeOutInMs = 6000;
+
 include('data/config.php');
 
 $action = 'monitor';
@@ -56,16 +58,15 @@ echo '<!DOCTYPE html>
 				}
 
 				#recommended div {
-					margin: 0 auto;
-					border-radius: 130px;
-					-moz-border-radius: 130px;
-					background: #000;
-					width: 400px;
-					color: #fff;
-					font-size: 306px;
-					padding: 60px 0px;
-					text-align: center
-
+                    margin: 0 auto;
+                    border-radius: 130px;
+                    -moz-border-radius: 130px;
+                    background: #000;
+                    width: 400px;
+                    color: #fff;
+                    font-size: 166px;
+                    padding: 50px 0px;
+                    text-align: center
 				}
 
 				#countdown {
