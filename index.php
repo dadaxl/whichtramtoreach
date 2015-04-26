@@ -62,7 +62,7 @@ echo '<!DOCTYPE html>
 					background: #000;
 					width: 400px;
 					color: #fff;
-					font-size: 336px;
+					font-size: 306px;
 					padding: 60px 0px;
 					text-align: center
 
