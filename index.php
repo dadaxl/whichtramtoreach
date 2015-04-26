@@ -8,7 +8,8 @@ $action = 'monitor';
 
 $testUrl = APINODE . $action . '?sender=' . APIKEY . '&rbl=';
 
-echo '<html>
+echo '<!DOCTYPE html>
+	  <html itemscope itemtype="http://schema.org/QAPage">
 		<head>
 			<style>
 				body {
@@ -32,15 +33,45 @@ echo '<html>
 					padding: 10px;
 					font-size: 24px;
 				}
+
+				.notreachable {
+					color: red;
+					opacity: 0.5;
+				}
+
+				.reachable {
+					color: green;
+					opacity: 1;
+				}
+
+				.disabled {
+					opacity: 0.2;
+				}
+
+				#recommended {
+					float: left;
+					margin-top: 40px;
+					width: 100%;
+					text-align: center
+				}
+
+				#recommended div {
+					margin: 0 auto;
+					border-radius: 130px;
+					-moz-border-radius: 130px;
+					background: #000;
+					width: 400px;
+					color: #fff;
+					font-size: 336px;
+					padding: 60px 0px;
+					text-align: center
+
+				}
 			</style>
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		</head>
 		<body>';
-echo '<h1>Wallensteinplatz</h1><table>
-		<tr>
-			<th>Linie</th>
-			<th>Richtung</th>
-			<th>Abfahrt</th>
-		</tr>';
+echo '<table class="trams">';
 
 foreach ($relevantRbls as $rbl) {
 	$testData = testRequest($testUrl . $rbl);
@@ -57,7 +88,10 @@ foreach ($relevantRbls as $rbl) {
 }
 
 echo '</tr></table>
-
+	  <div id="recommended">
+	  	<div></div>
+	  </div>
+	  <script src="js/main.js"></script>
 	  <script>
 	  	window.setTimeout(function() {location.reload();}, 6000);
 	  </script>';
@@ -87,9 +121,9 @@ function renderLines($lines) {
 }
 
 function renderDepartures($departures) {
-	$str = "<table><tr>";
+	$str = '<table class="departures"><tr>';
 	for ($i=0; $i<sizeof($departures); $i++) {
-		$str .= "<td>" . $departures[$i]->departureTime->countdown . "</td>";
+		$str .= "<td>" . checkReachAbility($departures[$i]->departureTime->countdown) . "</td>";
 	}
 	$str .= "</tr></table>";
 
@@ -98,5 +132,13 @@ function renderDepartures($departures) {
 	//var_dump($departures);
 
 	//$line->departures->departure[0]->departureTime->countdown
+}
+
+function checkReachAbility($countdown) {
+	if ($countdown <= $GLOBALS["timeBufferInMinutes"]) {
+		return '<span class="notreachable">' . $countdown . '</span>';
+	} else {
+		return '<span class="reachable">' . $countdown . '</span>';		
+	}
 }
 ?>
